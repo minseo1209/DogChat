@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -10,16 +9,6 @@ import { useEffect, useState } from 'react';
 function App() {
   let [sky, setSky] = useState(1);
   let [time, setTime] = useState(new Date());
-
-  // 시간 가져오기
-  useEffect(() => {
-    let update = setInterval(() => {
-      setTime(new Date());
-      updateBackground();
-    }, 1000);
-    return () => clearInterval(update);
-  }, [time]);
-
   // 배경 시간대 조건
 
   let updateBackground = () => {
@@ -35,6 +24,16 @@ function App() {
       setSky(4);
     }
   };
+
+  // 시간 가져오기
+  useEffect(() => {
+    let update = setInterval(() => {
+      setTime(new Date());
+      updateBackground();
+    }, 1000);
+    return () => clearInterval(update);
+  }, [time, updateBackground]);
+
   // choose에서 값 가져오기
 
   let [choose, setChoose] = useState();

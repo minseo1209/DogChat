@@ -64,11 +64,11 @@ function MainPage(props) {
       window.removeEventListener('keyup', keyUpHandler);
     };
   };
-
+  // 바닥위치 설정
   let dogBottom = () => {
     let dogSize = 100;
     let worldHeight = view - dogSize;
-    let ground = 54;
+    let ground = 74;
     return worldHeight - ground;
   };
 
