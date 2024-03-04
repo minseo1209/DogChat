@@ -3,7 +3,7 @@ function getStreamApiKey() {
 }
 
 function getStreamAuthDomain() {
-  return 'http://localhost:3000';
+  return 'https://mydogchat.netlify.app/';
 }
 
 export { getStreamApiKey, getStreamAuthDomain };
