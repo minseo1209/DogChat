@@ -9,7 +9,6 @@ let MainPage = (props) => {
 
   // Stream Chat 연동에 필요한 정보
   let apiKey = 'yssedu3g6gsr';
-  let authDomain = 'https://mydogchat.netlify.app/';
 
   // 상태 변수들
   let [client, setClient] = useState(null); // Stream Chat 클라이언트
@@ -31,7 +30,7 @@ let MainPage = (props) => {
     };
 
     initializeChat();
-  }, []);
+  }, [apiKey]);
 
   // 채널 설정
   useEffect(() => {
@@ -174,12 +173,13 @@ let MainPage = (props) => {
           left: `${Math.min(Math.max(walk, 0), maxLeft)}px`,
         }}
       ></img>
+
       <span
         className="dog-nickname"
         style={{
-          position: 'absolute', // 이미지와 함께 움직이기 위해 absolute로 변경
-          top: `${dogBottom() - 20}px`, // 강아지 머리 위에 표시하도록 위치 조정
-          left: `${Math.min(Math.max(walk, 0), maxLeft) + 20}px`, // 강아지 머리와 같은 위치로 조정
+          position: 'absolute',
+          top: `${dogBottom() - 20}px`,
+          left: `${Math.min(Math.max(walk, 0), maxLeft) + 20}px`,
         }}
       >
         {nickname}
