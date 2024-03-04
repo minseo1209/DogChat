@@ -9,30 +9,30 @@ import { useEffect, useState } from 'react';
 function App() {
   let [sky, setSky] = useState(1);
   let [time, setTime] = useState(new Date());
-  // 배경 시간대 조건
 
-  let updateBackground = () => {
-    let hours = time.getHours();
-
-    if (hours >= 6 && hours < 18) {
-      setSky(1);
-    } else if (hours >= 18 && hours < 19) {
-      setSky(2);
-    } else if (hours >= 19 && hours <= 23) {
-      setSky(3);
-    } else {
-      setSky(4);
-    }
-  };
-
-  // 시간 가져오기
   useEffect(() => {
+    // 배경 시간대 조건
+
+    let updateBackground = () => {
+      let hours = time.getHours();
+
+      if (hours >= 6 && hours < 18) {
+        setSky(1);
+      } else if (hours >= 18 && hours < 19) {
+        setSky(2);
+      } else if (hours >= 19 && hours <= 23) {
+        setSky(3);
+      } else {
+        setSky(4);
+      }
+    };
+    // 시간 가져오기
     let update = setInterval(() => {
       setTime(new Date());
       updateBackground();
     }, 1000);
     return () => clearInterval(update);
-  }, [time, updateBackground]);
+  }, [time]);
 
   // choose에서 값 가져오기
 
