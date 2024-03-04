@@ -15,6 +15,7 @@ let MainPage = (props) => {
   let [channel, setChannel] = useState(); // 현재 사용 중인 채널
   let [view, setView] = useState(window.innerHeight); // 화면 높이
   let [messages, setMessages] = useState([]); // 채팅 메시지들
+  let [welcomeMessage, setWelcomeMessage] = useState(null); // 환영 메시지
   let printRef = useRef(null); // 채팅 출력창 참조
 
   // Stream Chat 클라이언트 초기화
@@ -24,13 +25,16 @@ let MainPage = (props) => {
         let chatClient = new StreamChat(apiKey, { timeout: 10000 });
         await chatClient.connectAnonymousUser();
         setClient(chatClient);
+
+        // 연결되었을 때 환영 메시지 추가
+        setWelcomeMessage(`환영합니다, ${nickname}님!`);
       } catch (error) {
         console.error('Stream Chat에 연결 중 오류 발생:', error);
       }
     };
 
     initializeChat();
-  }, [apiKey]);
+  }, [apiKey, nickname]);
 
   // 채널 설정
   useEffect(() => {
@@ -149,14 +153,17 @@ let MainPage = (props) => {
   // 채팅 입력창과 출력창 관련 상태 변수들
   let [inputText, setInputText] = useState('');
 
-  // 채팅 입력 이벤트 처리
   let handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { nickname, content: inputText },
-      ]);
+
+      // 메시지 객체 생성 및 추가
+      let newMessage = {
+        nickname,
+        content: `${inputText} `,
+      };
+
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputText('');
     }
   };
@@ -196,12 +203,18 @@ let MainPage = (props) => {
       )}
 
       <div className="print" ref={printRef}>
+        {/* 추가: 환영 메시지 출력 */}
+        {welcomeMessage && (
+          <div className="chat-message welcome-message">{welcomeMessage}</div>
+        )}
+        {/* 기존 채팅 메시지들 */}
         {messages.map((message, index) => (
           <div key={index} className="chat-message">
             <span className="name">{message.nickname}:</span> {message.content}
           </div>
         ))}
       </div>
+
       <div className="chat">
         <input
           className="chatBox"
