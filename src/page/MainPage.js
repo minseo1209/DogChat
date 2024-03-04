@@ -3,26 +3,26 @@ import { StreamChat } from 'stream-chat';
 import { Chat, Channel, MessageInput, MessageList } from 'stream-chat-react';
 import 'stream-chat-react/dist/css/index.css';
 
-const MainPage = (props) => {
+let MainPage = (props) => {
   // Props
-  const nickname = props.nickname; // 닉네임 프롭스
+  let nickname = props.nickname; // 닉네임 프롭스
 
   // Stream Chat 연동에 필요한 정보
-  const apiKey = 'yssedu3g6gsr';
-  const authDomain = 'http://localhost:3000';
+  let apiKey = 'yssedu3g6gsr';
+  let authDomain = 'https://mydogchat.netlify.app/';
 
   // 상태 변수들
-  const [client, setClient] = useState(null); // Stream Chat 클라이언트
-  const [channel, setChannel] = useState(); // 현재 사용 중인 채널
-  const [view, setView] = useState(window.innerHeight); // 화면 높이
-  const [messages, setMessages] = useState([]); // 채팅 메시지들
-  const printRef = useRef(null); // 채팅 출력창 참조
+  let [client, setClient] = useState(null); // Stream Chat 클라이언트
+  let [channel, setChannel] = useState(); // 현재 사용 중인 채널
+  let [view, setView] = useState(window.innerHeight); // 화면 높이
+  let [messages, setMessages] = useState([]); // 채팅 메시지들
+  let printRef = useRef(null); // 채팅 출력창 참조
 
   // Stream Chat 클라이언트 초기화
   useEffect(() => {
-    const initializeChat = async () => {
+    let initializeChat = async () => {
       try {
-        const chatClient = new StreamChat(apiKey, { timeout: 10000 });
+        let chatClient = new StreamChat(apiKey, { timeout: 10000 });
         await chatClient.connectAnonymousUser();
         setClient(chatClient);
       } catch (error) {
@@ -35,10 +35,10 @@ const MainPage = (props) => {
 
   // 채널 설정
   useEffect(() => {
-    const setupChannel = async () => {
+    let setupChannel = async () => {
       try {
         if (client.user && client.user.anonymous) {
-          const hasCreateChannelPermission = client.user.hasPermission(
+          let hasCreateChannelPermission = client.user.hasPermission(
             'CreateChannel',
             'messaging'
           );
@@ -48,8 +48,8 @@ const MainPage = (props) => {
             return;
           }
 
-          const channelId = 'public_channel';
-          const newChannel = client.channel('messaging', channelId, {});
+          let channelId = 'public_channel';
+          let newChannel = client.channel('messaging', channelId, {});
           await newChannel.watch();
           setChannel(newChannel);
         }
@@ -65,7 +65,7 @@ const MainPage = (props) => {
 
   // 화면 높이 변경 감지
   useEffect(() => {
-    const handleResize = () => {
+    let handleResize = () => {
       setView(window.innerHeight);
     };
 
@@ -83,13 +83,13 @@ const MainPage = (props) => {
   }, [messages]);
 
   // 강아지 움직임 관련 상태 변수들
-  const [change, setChange] = useState('숨');
-  const [walk, setWalk] = useState(0);
-  const [left, setLeft] = useState(false);
+  let [change, setChange] = useState('숨');
+  let [walk, setWalk] = useState(0);
+  let [left, setLeft] = useState(false);
 
   // 키보드 입력 이벤트 처리
   useEffect(() => {
-    const keyDown = (e) => {
+    let keyDown = (e) => {
       if (e.key === 'ArrowRight') {
         setChange('걷기');
         move(1);
@@ -101,7 +101,7 @@ const MainPage = (props) => {
       }
     };
 
-    const keyUp = (e) => {
+    let keyUp = (e) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
         setChange('숨');
       }
@@ -117,7 +117,7 @@ const MainPage = (props) => {
   }, []);
 
   // 강아지 이동 함수
-  const move = (direction) => {
+  let move = (direction) => {
     let moveInterval = setInterval(() => {
       setWalk((prev) => prev + direction);
     }, 50);
@@ -136,22 +136,22 @@ const MainPage = (props) => {
   };
 
   // 강아지 위치 계산 함수
-  const dogBottom = () => {
-    const dogSize = 100;
-    const worldHeight = view - dogSize;
-    const ground = 74;
+  let dogBottom = () => {
+    let dogSize = 100;
+    let worldHeight = view - dogSize;
+    let ground = 74;
     return worldHeight - ground;
   };
 
   // 최대 화면 크기 설정
-  const maxView = 80;
-  const maxLeft = (window.innerWidth * maxView) / 100;
+  let maxView = 80;
+  let maxLeft = (window.innerWidth * maxView) / 100;
 
   // 채팅 입력창과 출력창 관련 상태 변수들
-  const [inputText, setInputText] = useState('');
+  let [inputText, setInputText] = useState('');
 
   // 채팅 입력 이벤트 처리
-  const handleKeyPress = (e) => {
+  let handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       setMessages((prevMessages) => [
