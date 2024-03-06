@@ -34,5 +34,5 @@ React.memo 또는 useMemo를 사용하여 불필요한 렌더링 최소화
 
 
 ## 🔗 URL
-링크 : <https://mydogchat.netlify.app/main/>
+링크 : <https://mydogchat.netlify.app/>
 
